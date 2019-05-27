@@ -1,0 +1,35 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Connection</title>
+<link rel="stylesheet" type="text/css" href="style/style.css" />
+
+
+</head>
+<body>
+    <div class="main">
+        <h1>Connection </h1>
+        <form  method="post" action="control/c_connection.php">
+            Login:<br>
+            <input type="text" name="login" placeholder  = 'user nom ou mail' >
+            <br>
+            Mot de passe:<br>
+            <input type="password" name="password" >
+            <br>
+            <br>
+            <input type="submit" value="connecter" name = "btnConnecter">
+        </form>
+        <p>pas de compte?</p>
+        <a href="view/inscription.php">inscription</a>
+		
+		<p>utiliser sans compte</p>
+		<a href="view/v_accuille.php">accuille</a>
+
+    </div>
+
+
+</body>
+</html>

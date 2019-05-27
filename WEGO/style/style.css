@@ -1,0 +1,18 @@
+body{
+	left:20%;
+	margin-left: 15%; /*元素的左外边距 %定义基于父对象总高度的百分比左外边距。*/
+	width:expression(window.screen.width - (border) - (scroll width ) );
+	background-image: url(005.jpg);
+	font: normal 100% Helvetica, Arial, sans-serif;
+}
+canvas{
+	border-style: solid; /* 设置四条边框的样式*/
+	border-color: #66CCFF;
+	background-color:rgba(255,255,255,0.5);
+	text-align: left;
+}
+
+ div.main {
+	 float: right; width: 80%;
+ }
+
