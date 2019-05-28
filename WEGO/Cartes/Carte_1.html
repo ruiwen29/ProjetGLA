@@ -1,21 +1,12 @@
-<!doctype html>
-<?php session_start();?>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Accuille</title>
-<link rel="stylesheet" type="text/css" href="../style/style.css" />
-
-
-</head>
-<body>
-	<h3> La carte </h3>
-		
-	<canvas id = "carte" width ="1600px" height = "900px" style = "border:1px solid #000000; background-color:#AAFFA0">
+<!DOCTYPE html>
+<html>
+	<body>
+		<h3> La carte </h3>
+	<canvas id = "carte" width ="1600px" height = "900px" style = "border:1px solid #000000; background-color:#D5F5E3">
 	</canvas>
+	
 	<script type = "text/javascript">
-	/*background-color:#D5F5E3*/
+	
 	var c = document.getElementById("carte");
 	var context = c.getContext("2d");
 	var contextt = c.getContext("2d");
@@ -53,10 +44,10 @@
 		document.write("<br/>");*/
 
 		
-		context.fillStyle = "#0055FF";
+		context.fillStyle = "#F95151";
 		context.beginPath();
-		context.fillText(n,340*(la-25),220*(lo-25)-15);
-		context.arc(340*(la-25),220*(lo-25),10,0,Math.PI*2,true);
+		context.fillText(n,350*(la-25),200*(lo-25)-15);
+		context.arc(350*(la-25),200*(lo-25),10,0,Math.PI*2,true);
 		context.closePath();
 		context.fill();
 		
@@ -102,67 +93,16 @@
 				}
 			}
 
-			contextt.strokeStyle = "#FBFED8";
+			contextt.strokeStyle = "#D9D9D9";
 			contextt.beginPath();
 			contextt.lineWidth = 5;
 			
-			contextt.moveTo(340*(la_debut-25),220*(lo_debut-25));
-			contextt.lineTo(340*(la_fin-25),220*(lo_fin-25));
+			contextt.moveTo(350*(la_debut-25),200*(lo_debut-25));
+			contextt.lineTo(350*(la_fin-25),200*(lo_fin-25));
 			contextt.closePath();
 			contextt.stroke();
 	}
 }
 	</script>
-	<div class = 'codition'>
-		 <h1>cherche un trajet</h1>
-        <form  method="post" action="../control/c_chercher.php">
-			Codition: <select name = 'codition'>
-			  <option value="court">Court</option>
-			  <option value="rapide">Rapide</option>
-			  <option value="eco">Economique</option>
-			  <option value="ecologique">Ecologique</option>
-			</select>
-			<br>
-            Depart:
-            <input type="text" name="depart" placeholder = 'ville' >
-            <br>
-            Destination:
-            <input type="text" name="destination" placeholder = 'ville'>
-            <br>
-            <input type="submit" value="Go" name = "btnCherche">
-        </form>
-        
-	</div>
-	
-	
-	
-	<div class = 'favori'>
-	<h1>List de Favori </h1>
-	<?php 
-		
-		if (isset($_SESSION['id']))
-		{	
-			require_once("../model/bd.php");
-			require_once("../model/user.php");
-			echo "connecte id = ".$_SESSION['id'];
-			$id = $_SESSION['id'];
-			$coBd = new Bd("wego");
-			$co = $coBd -> connexion();
-			$user = new User($id);					
-			echo "<ul>";
-			$user->favori($co);
-			echo "</ul>";
-			echo "<a href='../control/c_deconnection.php'>Deconnecter </a>";
-			//afficher la liste de favori 
-			
-			mysqli_close($co);
-		}
-		else{
-			echo "vous n'avez pas <a href='../index.php'>connecter </a>";
-		}
-	?>
-	
-	</div>
-
-</body>
+	</body>
 </html>

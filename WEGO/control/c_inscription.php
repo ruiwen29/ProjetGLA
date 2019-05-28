@@ -3,7 +3,7 @@
     require_once("../model/user.php");
     if(isset($_POST["nom"])&&isset($_POST["mail"])&&isset($_POST["password"])&&isset($_POST["password2"])){
         $nom = $_POST["nom"];
-		$nom = $_POST["mail"];
+		$mail = $_POST["mail"];
         $password = $_POST["password"];
         $password2 = $_POST["password2"];
         if ($password != $password2){
@@ -16,7 +16,7 @@
             $co = $coBd -> connexion();
             $user = new User(null,$nom,$mail,$password);
             $user ->ajouter($co);
-            header('location:../view/v_accuille.php');
+            header('location:../index.php');
         }
 
     }

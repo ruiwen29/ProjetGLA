@@ -1,34 +1,47 @@
 <?php
 Class User
 {
-    private  $id;
+    private $id;
     private $login;
 	private $nom;
 	private $mail;
     private $password;
 
-    public function __construct($login,$nom,$mail, $password)
+	function __construct() 
+    { 
+        $a = func_get_args(); 
+        $i = func_num_args(); 
+        if (method_exists($this,$f='__construct'.$i)) { 
+            call_user_func_array(array($this,$f),$a); 
+        } 
+    } 
+    
+    function __construct1($id)
     {
+        $this->id=$id ;
+    }
+   
+    function __construct4($login,$nom,$mail, $password)
+    {	
         $this->login=$login ;
-		$this->nom=$nom ;
-		$this->mail=$mail ;
+		$this->nom=$nom;
+		$this->mail=$mail;
         $this->password = $password;
     }
+    
 
     public function connection($co)
-    {   echo  '1';
+    {   
         $password = $this->password;
         $login = $this->login;
         $requete = "SELECT * FROM `user` WHERE nom = '$login' or mail = '$login' AND passeword = '$password'";
         $result = mysqli_query($co, $requete) or die ("Erreur:Execution de la requete impossible1:" . mysqli_error($co));
 
         if (mysqli_num_rows($result) == 1) {
-			echo  '2';
-            $this->nom = $nom;
-			$this->mail = $mail;
-            $this->password = $password;
             $row = mysqli_fetch_assoc($result);
-            $this->id = $row["id"];
+            $this->id = $row["id_user"];
+			session_start();
+			$_SESSION['id']=$row["id_user"];
             header('location:../view/v_accuille.php');
 
         } else {
@@ -50,6 +63,27 @@ Class User
         mysqli_query($co, $requete) or die ("Erreur:Execution de la requete impossible1:" . mysqli_error($co));
     }
 
-
+	public function favori ($co)
+	{
+		$this->co = $co;
+		$id = $this->id;
+		$requete = "SELECT * FROM `trajetfavori` WHERE id_user = '$id'";
+        $result = mysqli_query($co, $requete) or die ("Erreur:Execution de la requete impossible1:" . mysqli_error($co));
+		if (mysqli_num_rows($result) <= 0) {
+			echo "<li>vous n'a pas de favori</li>";
+		}
+		else {
+			while (($row = mysql_fetch_row($result)) !== false){
+			$id_trajet =  $row['id_trajet'];
+			$trajet =  $row['Trajet'];
+			$trajet_json= json_encode($trajet );
+			echo "<li>< a href = '../view/v_trajet.php?trajet_json=$trajet_json' >$trajet </a></li>
+			";
+		}
+		}
+        
+			
+		
+	}
 }
 ?>

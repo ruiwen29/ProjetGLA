@@ -9,19 +9,9 @@
 
 </head>
 <body>
-    <div class="map">
-        <h1>Connection </h1>
-        <canvas> map </canvas>
-    </div>
-	
 	<div class = 'codition'>
 		 <h1>cherche un trajet</h1>
-        <form  method="post" action="control/c_chercher.php">
-			Codition:<select name = 'codition'>
-			  <option value="court">Court</option>
-			  <option value="rapide">Rapide</option>
-			  <option value="eco">Eco</option>
-			  <option value="ecologique">Ecologique</option>
+        <form  method="post" action="control/c_rechercher.php">
 			</select>
 			<br>
 			<select name = 'codition'>
@@ -29,18 +19,30 @@
 			  <option value=2>Suivre</option>
 			</select>
 			<input type="text" name="ES" placeholder = 'ville' >
-            Nombre de radar:
-            <input type="text" name="depart" placeholder = 'ville' >
+			<br>
+            Nombre de radar <=
+            <input type="text" name="depart"  >
             <br>
             <input type="submit" value="Rechercher" name = "btnReCherche">
         </form>
-        <p>pas de compte?</p>
-        <a href="view/inscription.php">inscription</a>
 	</div>
 	<h1>Trajet </h1>
-	<div class = 'favori'>
-	
+	<div class = 'trajet'>
+	<ul>
+		<?php 
+			//affiche la liste des trajets , selecter un trajet pour navigation 
+			if(isset($_POST["trajets"])){
+				//for (){}
+			}
+			else {
+				echo "aucun trajet trouver";
+			}
+		?>
+	</ul>
 	</div>
-
+	<div class = "return"> 
+		chercher un autre trajet 
+		<a href = "../view/v_accuille"> return </a>
+	</div> 
 </body>
 </html>

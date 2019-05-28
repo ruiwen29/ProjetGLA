@@ -77,7 +77,7 @@ CREATE TABLE User(
 
 CREATE TABLE TrajetFavori(
         id_trajet Int  Auto_increment  NOT NULL ,
-        Trajet    Int NOT NULL ,
+        Trajet    Varchar (1000) NOT NULL ,
         id_user   Int
 	,CONSTRAINT TrajetFavori_PK PRIMARY KEY (id_trajet)
 
