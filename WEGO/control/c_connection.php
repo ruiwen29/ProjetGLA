@@ -10,7 +10,7 @@ if(isset($_POST["login"])&&isset($_POST["password"])){
     $co = $coBd -> connexion();
     $user = new User($login,null,null,$password);
     $user->connection($co);
-
+	mysqli_close($co);
 }
 else{
     echo "<script>alert('renpilir tous les trous SVP')</script>
