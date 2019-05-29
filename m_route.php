@@ -18,22 +18,26 @@ class route{
        
     } 
 
-     public function getAllRoute($carte){
+ //     public function getAllRoute($carte){
 
-		 $routes=[];
-		 foreach ($carte['reseau']['route'] as $key => $value) {
-		 	$route = new route();
-		 	$route->nom = $value['nom'];
-		 	$route->type = $value['type'];
+	// 	 $routes=[];
+	// 	 foreach ($carte['reseau']['route'] as $key => $value) {
+	// 	 	$route = new route();
+	// 	 	$route->nom = $value['nom'];
+	// 	 	$route->type = $value['type'];
 
-		 	$route->troncons = $value['troncon'];
+	// 	 	$route->troncons = $value['troncon'];
 
-		 	$routes[] = $route;
+	// 	 	$routes[] = $route;
 
-		 }
-		 return $routes;
+	// 	 }
+	// 	 return $routes;
 
-	} //return all the route from carte  ok
+	// } //return all the route from carte  ok
+
+	function getAllRoute($carte){
+		return $carte['reseau']['route'];
+	}
 //	public function 
 
 

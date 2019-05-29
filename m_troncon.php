@@ -1,5 +1,4 @@
 <?php
-
 class troncon{
 
 	public $ville1;
@@ -27,8 +26,8 @@ class troncon{
 
 
 	public function getAllTronconFromCarte($carte){
-		$trajet = new trajet();
-		$arr = $trajet->getAllRoute($carte);
+		$route = new route();
+		$arr = $route->getAllRoute($carte);
 		$res = [];
 		foreach ($arr as $key => $value) {
 			if(!is_array($value['troncon'][0]))
@@ -44,13 +43,16 @@ class troncon{
 
 
 	public function getAllTronconFromRoute($route){   
-		if(is_array($route->troncons[0])){
 		$arr = [];
-		foreach ($troncons[0] as $key => $value) {
+		if(is_array($route['troncon'][0])){
+		
+		foreach ($route['troncon'] as $key => $value) {
 			$arr[] = $value;
-		}
-		return $rarr;}
-		else return $route->troncons;
+		}}
+
+		else 
+		 	{$arr[] =  $route['troncon'];}
+		return $arr;
 
 	} //return array of all the troncon from route ok
 

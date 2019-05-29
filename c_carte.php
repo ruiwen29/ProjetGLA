@@ -21,22 +21,23 @@ echo '</br>';
  //$b = $troncon->getAllTronconFromCarte($a);
 //print_r($b);
 
-// $troncon = new troncon(); -ok
-// $b = $troncon->getAllTronconFromCarte($a);
+	$troncon = new troncon(); 
+ $b = $troncon->getAllTronconFromCarte($a);
 // print_r($b);
+$trajet = new trajet();
+$trajets = $trajet->chercherTrajets($a,'paris','wissous');
 
-
-
-// $c = $route->getAllRoute($a);
-//print_r($c);
-// print_r($c[2]->troncons);
-// $d = $troncon->getAllTronconFromRoute($c[2]);
-// $e = $ville->getVilleFromTroncon($d[2]);
+ $c = $route->getAllRoute($a);
+//	print_r($c);
+ //print_r($c[0]['troncon']);
+ $d = $troncon->getAllTronconFromRoute($c[2]);
+ $e = $ville->getVilleFromTroncon($d[0]);
 
 // print_r($d);
 // print_r($e);
 
 
+print_r($trajets);
 
 
 

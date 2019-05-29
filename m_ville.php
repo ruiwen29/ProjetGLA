@@ -24,7 +24,7 @@ class ville{
 		$array[] = $troncon['ville1'];
 		$array[] = $troncon['ville2'];
 		return $array;
-	}//有问题 待解决
+	}//ok
 
 
 	public function getNextVilleFromTroncon($Troncon,$ville){

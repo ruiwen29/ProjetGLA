@@ -88,10 +88,10 @@ Class trajet{
      					if(!in_array($t, $trajet->troncons)){
      						$trajet->troncons[] = $t;
      						$etape[] = $numero;
-     						$etape[] = $r->nom;
+     						$etape[] = $r['route'];
      						$etape[] = $ville->getNextVilleFromTroncon($t,$villeD);
      						$trajet->trajet[] = $etape;
-     						chercherUnTrajet(getNextVilleFromTroncon($t,$villeD),$villeF,&$tjs,$carte);
+     						chercherUnTrajet(getNextVilleFromTroncon($t,$villeD),$villeF,$tjs,$carte);
      					}
      			}
      		} 
@@ -101,8 +101,9 @@ Class trajet{
    	 public function chercherTrajets($carte,$villeDebut,$villeFin){
    	 	$trajets = [];
    	 	$trajets[] = $villeDebut;
-   	 	chercherUnTrajet($villeDebut,$villeFin,$trajets,$carte);
-   	 	$trajets[] = $villeDefin;
+
+   	 	$this->chercherUnTrajet($villeDebut,$villeFin,$trajets,$carte);
+   	 	$trajets[] = $villeFin;
    	 	return $trajets;
 
 
