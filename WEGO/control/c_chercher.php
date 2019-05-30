@@ -5,9 +5,11 @@
     if(isset($_POST["codition"])&&isset($_POST["depart"])&&isset($_POST["destination"])&&isset($_POST["radar"])){
         if (isset($_POST["sv"])){
 			$sv = $_POST["sv"];
+			$ev = $_POST["ev"];
 		}
 		else {
 			$sv = '';
+			$ev = '';
 		}
 		$codition = $_POST["codition"];
 		$depart = $_POST["depart"];
@@ -15,8 +17,17 @@
 		
 		$radar = $_POST["radar"];
 		
+		if ($codition =='court') {
+			
 		
-		$trajet = trajetSA($depart,$destination,$sv,'',$radar);
+				$trajet = trajetSA($depart,$destination,$ev,'',$radar);
+			
+				}
+		else{
+	$trajet = trajetRapide($depart,$destination,$ev,'',$radar);
+	
+		}
+		//$trajet = trajetSA($depart,$destination,$sv,'',$radar);
 		$arr =  array($depart);
 		
 		foreach ($trajet as $t){
@@ -36,5 +47,4 @@
 	}
   
   
-
 ?>
