@@ -24,6 +24,21 @@ canvas{
 	width : 80px;
 }
 
+.trajetfinal button{
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #1FC423;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 5px; 
+  width: 250px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
 .carte img{
 	position : absolute;
 	top: 0px;

@@ -18,7 +18,9 @@
 			<canvas id = "carte" width ="1600px" height = "900px" style = "border:1px solid #000000; background-color:#AAFFA0">
 			</canvas>
 			</div>
-			
+			</br>
+			<button id="btn">stock ce trajet a la liste favori</button>
+			</br>
 	<script type = "text/javascript">
 	function getQueryString(name) {  
 		location.href.replace("#","");  
@@ -292,8 +294,15 @@
 	
 	document.write("Ville fin: "+fin+"<br/>");
 	
-	</script>
-    </div>   
+	var btn = document.getElementById("btn");
+		btn.onclick=function(){			
+			window.location.href="../control/c_stockFavori.php?adr="+adr;
+			
+		}
 
+	</script>
+    </div>
+	
+	
 </body>
 </html>

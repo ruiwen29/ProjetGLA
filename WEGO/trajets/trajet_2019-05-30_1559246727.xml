@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<trajet><ville-depart>V4</ville-depart><etape><numero>1</numero><destination>V5</destination></etape><etape><numero>2</numero><destination>V2</destination></etape><etape><numero>3</numero><destination>V3</destination></etape><ville-arrivee>V3</ville-arrivee></trajet>

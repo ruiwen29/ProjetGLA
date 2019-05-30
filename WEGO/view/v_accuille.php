@@ -130,7 +130,7 @@
 			Destination:
             <input type="text" name="destination" placeholder = 'ville'>
 			<p></p>		
-			Vous voulez Suivre le ville 
+			Vous voulez eviter le ville 
 			<input type="text" name="sv" placeholder = 'ville' >   
 			<br/>
 			Radar
@@ -148,6 +148,7 @@
 	
 	<div class = 'favori'>
 	<h1>List de Favori </h1>
+	
 	<?php 
 		
 		if (isset($_SESSION['id']))
