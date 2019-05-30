@@ -11,6 +11,18 @@ canvas{
 	background-color:rgba(255,255,255,0.5);
 	text-align: left;
 }
+.trajetfinal h1{
+	color : #DC32FF;
+	 font-family :Comic Sans MS;
+	 font-size : 30pt;
+}
+
+.trajetfinal img{
+	position : absolute;
+	top: 0px;
+	right : 0px;
+	width : 80px;
+}
 
 .carte img{
 	position : absolute;

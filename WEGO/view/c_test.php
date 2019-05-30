@@ -50,8 +50,30 @@
 		foreach($openset as $p){
 			$p[0] 
 		}
+		
 		while (openset != []){
 			$x = lowest_f_score();
+			$x_ville2 = $x[1];
+			if ( $x_ville2== $goal)
+			{
+				return reconstruct_path($came_from,$goal);
+			}
+			//remove x from openset 
+			$openset = array_diff($openset,array($x));
+			//add x to closedset
+			$closedset = array_push($closedset,$x);
+			
+			foreach(neighbor_nodes($x_ville2) as y){
+				if ($key = array_search($x, $code)) !== NULL){
+					
+				}
+				else {
+					// tentative_g_score := g_score[x] + dist_between(x,y)   
+					//從起點到節點y的距離
+				}
+			}
+			
+			
 		}
 		
 		
@@ -96,10 +118,7 @@
 	
 	$depart = 'V4';
 	$destination = 'V3';
-	$open = array(
-		array($depart,0)
-	);
-	$close = [];
+	
 ?>
 </body>
 

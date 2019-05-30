@@ -122,8 +122,6 @@
 			Condition: <select name = 'codition'>
 			  <option value="court">Court</option>
 			  <option value="rapide">Rapide</option>
-			  <option value="eco">Economique</option>
-			  <option value="ecologique">Ecologique</option>
 			</select>
 			<p></p>
             Depart:
@@ -131,7 +129,16 @@
 			<p></p>            
 			Destination:
             <input type="text" name="destination" placeholder = 'ville'>
-			<p></p>
+			<p></p>		
+			Vous voulez Suivre le ville 
+			<input type="text" name="sv" placeholder = 'ville' >   
+			<br/>
+			Radar
+			<select name = 'radar'>
+			  <option value='Oui'>Oui</option>
+			  <option value='NON'>NON</option>
+			</select>
+            <br/><br/>
             <input type="submit" value="Go" name = "btnCherche">
         </form>
         
