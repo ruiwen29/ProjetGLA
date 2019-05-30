@@ -20,7 +20,32 @@
 			</div>
 			
 	<script type = "text/javascript">
-	
+	function getQueryString(name) {  
+		location.href.replace("#","");  
+		// 如果链接没有参数，或者链接中不存在我们要获取的参数，直接返回空       
+		if(location.href.indexOf("?")==-1 || location.href.indexOf(name+'=')==-1)     {          
+		   return '';      
+		}        
+		// 获取链接中参数部分       
+		var queryString = location.href.substring(location.href.indexOf("?")+1);        
+		// 分离参数对 ?key=value&key2=value2       
+		var parameters = queryString.split("&");        
+		  
+		var pos, paraName, paraValue;       
+		for(var i=0; i<=parameters.length; i++) {  
+		   // 获取等号位置           
+		   pos = parameters[i].split('=');           
+		   if(pos == -1) { continue; }            
+		   // 获取name 和 value           
+		   paraName = pos[0];           
+		   paraValue = pos[1];           
+		   // 如果查询的name等于当前name，就返回当前值，同时，将链接中的+号还原成空格          
+		   if(paraName == name) {       
+			return decodeURIComponent(paraValue.replace(/\+/g, " "));           
+		   }       
+		}       
+		return '';   
+	}   
 	/*Affiche la carte de base*/
 	var c = document.getElementById("carte");
 	var context = c.getContext("2d");
@@ -101,7 +126,11 @@
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	
-	xmlhttp.open("GET","../trajets/Carte_exemple_2_resultat.xml",false);
+	//xmlhttp.open("GET","../trajets/Carte_exemple_2_resultat.xml",false);
+	var adr = getQueryString('adr');
+	//document.write(adr);	
+	xmlhttp.open("GET",adr,false);
+	
 	xmlhttp.send();
 	xmlDoc = xmlhttp.responseXML;
 
@@ -248,17 +277,17 @@
 	}
 	
 
-	var routes = new Array();
+	//var routes = new Array();
 	var destinations = new Array();
 	for (i=0;i<el;i++){
-		routes.push(etape[i].getElementsByTagName("route")[0].childNodes[0].nodeValue);
+		//routes.push(etape[i].getElementsByTagName("route")[0].childNodes[0].nodeValue);
 		destinations.push(etape[i].getElementsByTagName("destination")[0].childNodes[0].nodeValue);
 	}
 	
 	document.write("Ville depart: "+start+"<br/>");
 	
 	for(i=0;i<el;i++){
-		document.write("Etape "+(i+1)+": "+routes[i]+" to destination : "+destinations[i]+"<br/>");
+		document.write("Etape "+(i+1)+" to destination : "+destinations[i]+"<br/>");
 	}
 	
 	document.write("Ville fin: "+fin+"<br/>");

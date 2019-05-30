@@ -29,6 +29,10 @@
 		echo '</br>----------------------------</br>';
 		$arr_xml = form_arr_for_xml($arr);
 		print_r($arr_xml);
+		$adr = stock_trajet($arr_xml);
+		print_r($adr);
+		
+		header("location:../view/v_trajet.php?adr=$adr");
 	}
   
   

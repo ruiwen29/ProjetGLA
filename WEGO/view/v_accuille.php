@@ -135,8 +135,8 @@
 			<br/>
 			Radar
 			<select name = 'radar'>
-			  <option value='Oui'>Oui</option>
-			  <option value='NON'>NON</option>
+			  <option value='true'>Oui</option>
+			  <option value='false'>NON</option>
 			</select>
             <br/><br/>
             <input type="submit" value="Go" name = "btnCherche">
