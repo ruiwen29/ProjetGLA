@@ -130,8 +130,9 @@
 			Destination:
             <input type="text" name="destination" placeholder = 'ville'>
 			<p></p>		
-			Vous voulez Suivre le ville 
-			<input type="text" name="sv" placeholder = 'ville' >   
+		
+			Vous voulez éviter la ville 
+			<input type="text" name="ev" placeholder = 'ville' > 
 			<br/>
 			Radar
 			<select name = 'radar'>
