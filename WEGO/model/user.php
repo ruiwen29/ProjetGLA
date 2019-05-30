@@ -76,7 +76,7 @@ Class User
 			
 			$row  =  mysqli_fetch_assoc($result);
 			$adr  = $row['Trajet'];
-			echo "<li><a href = '../view/v_trajet.php?adr=$adr' >".$adr ."</a></li>";
+			echo "<li><a href = '../view/v_trajet.php?adr=$adr' >".$adr ."</a>  <a href = '../control/c_supprimer.php?adr=$adr' > Supprimer</a></li>";
 			//echo "<li>".$adr ."</li>";
 		
 			
@@ -91,5 +91,11 @@ Class User
 	     	
 	}
 	
+	public function supprimer_favori ($co ,$t){;
+		$id = $this->id;
+		$requete = "DELETE FROM `trajetfavori` WHERE  id_user = '$id' and Trajet = '$t';";
+        $result = mysqli_query($co, $requete) or die ("Erreur:Execution de la requete impossible1:" . mysqli_error($co));
+	     	
+	}
 }
 ?>
