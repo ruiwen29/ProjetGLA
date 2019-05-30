@@ -122,8 +122,6 @@
 			Condition: <select name = 'codition'>
 			  <option value="court">Court</option>
 			  <option value="rapide">Rapide</option>
-			  <option value="eco">Economique</option>
-			  <option value="ecologique">Ecologique</option>
 			</select>
 			<p></p>
             Depart:
@@ -131,7 +129,17 @@
 			<p></p>            
 			Destination:
             <input type="text" name="destination" placeholder = 'ville'>
-			<p></p>
+			<p></p>		
+			Vous voulez éviter la ville 
+			<input type="text" name="ev" placeholder = 'ville' > 
+
+			<br/>
+			Radar
+			<select name = 'radar'>
+			  <option value='true'>Oui</option>
+			  <option value='false'>NON</option>
+			</select>
+            <br/><br/>
             <input type="submit" value="Go" name = "btnCherche">
         </form>
         
@@ -141,6 +149,7 @@
 	
 	<div class = 'favori'>
 	<h1>List de Favori </h1>
+	
 	<?php 
 		
 		if (isset($_SESSION['id']))

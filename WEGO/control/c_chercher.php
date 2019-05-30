@@ -1,47 +1,49 @@
 <?php
-    require_once("../model/m_trajet.php");
-	//include ("../model/m_trajet.php");
-	require_once("../model/m_carte.php");
-    if(isset($_POST["codition"])&&isset($_POST["depart"])&&isset($_POST["destination"])){
-        
+   // require_once("../model/m_trajet.php");
+	include ("../model/m_trajet.php");
+	//require_once("../model/m_carte.php");
+    if(isset($_POST["codition"])&&isset($_POST["depart"])&&isset($_POST["destination"])&&isset($_POST["radar"])){
+        if (isset($_POST["ev"])){
+			$ev = $_POST["ev"];
+		}
+		else {
+		
+			$ev = '';
+		}
 		$codition = $_POST["codition"];
 		$depart = $_POST["depart"];
         $destination = $_POST["destination"];
-		$carte_adr =  "../Cartes/Carte_2.xml";
-		/*
-		$carte = new Carte($carte_adr);
-		$t = new Trajet($carte , $depart, $destination);
 		
-		//$troncons = $carte->getAllTroncon();
-		$fichier =  "../Cartes/Carte.xml";
-		$xml = file_get_contents($fichier);
-		$objectxml = simplexml_load_string($xml);//将文件转换成 对象
-		$xmljson= json_encode($objectxml );//将对象转换个JSON
-		$xmlarray=json_decode($xmljson,true);//将json转换成数组
-		$troncons =  [];
-		foreach ($xmlarray['route'] as $route){
-			array_push($troncons,$route['troncon']);	
+		$radar = $_POST["radar"];
+		
+		if ($codition =='court') {
+			
+		
+				$trajet = trajetSA($depart,$destination,$ev,'',$radar);
+			
+				}
+		else{
+	$trajet = trajetRapide($depart,$destination,$ev,'',$radar);
+	
 		}
+		//$trajet = trajetSA($depart,$destination,$sv,'',$radar);
+		$arr =  array($depart);
 		
-		$trajets = array("depart" => "$depart","destination" => "$destination");
-		$villes= array('$depart');
-		$trajets= $t->chercherUnTrajet($depart,$destination,$trajets, $troncons,$villes);
-   
+		foreach ($trajet as $t){
+			print_r($t[0]);
+			echo '</br>';	
+			array_push($arr,$t[0]);			
+			echo '</br>----------------------------</br>';
+		}
+		print_r($arr);
+		echo '</br>----------------------------</br>';
+		$arr_xml = form_arr_for_xml($arr);
+		print_r($arr_xml);
+		$adr = stock_trajet($arr_xml);
+		print_r($adr);
 		
-      
-
-	  //chercher tous les trajet 
-	   //$trajets = $trajet->chercherTrajets();
-	   //print_r($trajets);
-	   //ordre par condition 
-	   //$trajets = $trajet->trier_par_condition( $codition , $trajets);
-	   
-	   //envouyer le resultat a la page v_recherche
-	   //header("location:../view/v_rechercher.php?trajets=$trajets");
-      
-		*/
+		header("location:../view/v_trajet.php?adr=$adr");
 	}
   
   
-
 ?>

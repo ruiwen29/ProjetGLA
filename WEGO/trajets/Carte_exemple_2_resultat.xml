@@ -20,5 +20,10 @@
 <route>N1</route>
 <destination>V9</destination>
 </etape>
+<etape>
+<numero>5</numero>
+<route>N1</route>
+<destination>V8</destination>
+</etape>
 <ville-arrivee>V8</ville-arrivee>
 </trajet>

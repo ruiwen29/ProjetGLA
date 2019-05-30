@@ -4,16 +4,23 @@
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Trajet</title>
-	<link rel="stylesheet" type="text/css" href="style/style.css" />
+	<link rel="stylesheet" type="text/css" href="../style/style.css" />
 	<link rel="icon" href="../style/logo.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="../style/logo.ico" type="image/x-icon">
 </head>
 <body>
-   <h3> Le carte de trajet de votre choix </h3>
-		
+	 <div class = "trajetfinal">
+		<a href = "../view/v_accuille.php">
+		<img class = "smallImage" src = "../style/logoWego.jpg"/>
+		</a>
+   <h1> Le carte de trajet de votre choix </h1>
+			<div class = "canvas">
 			<canvas id = "carte" width ="1600px" height = "900px" style = "border:1px solid #000000; background-color:#AAFFA0">
 			</canvas>
-
+			</div>
+			</br>
+			<button id="btn">stock ce trajet a la liste favori</button>
+			</br>
 	<script type = "text/javascript">
 	function getQueryString(name) {  
 		location.href.replace("#","");  
@@ -49,10 +56,8 @@
 	
 	if (window.XMLHttpRequest){
 		xmlhttp = new XMLHttpRequest();
-		//document.write("Request ok<br/>");
 	}else {
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		//document.write("Request not ok");
 	}
 	xmlhttp.open("GET","../Cartes/Carte_2.xml",false);
 	xmlhttp.send();
@@ -63,16 +68,10 @@
 	
 	for (i = 0;i<r.length;i++){
 		var rn = r[i].getElementsByTagName("nom")[0].childNodes[0].nodeValue;
-		/*document.write(rn);
-		document.write("<br/>");*/
 		var tr = r[i].getElementsByTagName("troncon");
 		for(j=0;j<tr.length;j++){
 			var villedebut = tr[j].getElementsByTagName("ville1")[0].childNodes[0].nodeValue;
 			var villefin = tr[j].getElementsByTagName("ville2")[0].childNodes[0].nodeValue;
-			/*document.write("villedebut :"+villedebut);
-			document.write(" ");
-			document.write("villefin :"+villefin);
-			document.write("<br/>");*/
 			
 			for (k = 0;k<v.length;k++){
 				for (l = 0; l<v.length;l++){
@@ -82,19 +81,11 @@
 						for( m = 0;m<co_debut.length;m++){
 							var la_debut = co_debut[m].getElementsByTagName("latitude")[0].childNodes[0].nodeValue;
 							var lo_debut = co_debut[m].getElementsByTagName("longitude")[0].childNodes[0].nodeValue;
-							/*document.write(la_debut);
-							document.write("haha<br/>");
-							document.write(lo_debut);
-							document.write("hoho<br/>");*/
 						}
 						var co_fin = v[l].getElementsByTagName("coordonnees");
 						for( m = 0;m<co_fin.length;m++){
 							var la_fin = co_fin[m].getElementsByTagName("latitude")[0].childNodes[0].nodeValue;
 							var lo_fin = co_fin[m].getElementsByTagName("longitude")[0].childNodes[0].nodeValue;
-							/*document.write(la_fin);
-							document.write("haahaa<br/>");
-							document.write(lo_fin);
-							document.write("hoohoo<br/>");*/
 						}
 					}
 					context.beginPath();
@@ -112,19 +103,11 @@
 	
 	for (i = 0;i<v.length;i++){
 		var n = v[i].getElementsByTagName("nom")[0].childNodes[0].nodeValue;
-		/*document.write(n);
-		document.write(v[i].getElementsByTagName("type")[0].childNodes[0].nodeValue);
-		
-		document.write("<br/>");*/
 		var co = v[i].getElementsByTagName("coordonnees");
 		
 		for( j = 0;j<co.length;j++){
 		var la = co[j].getElementsByTagName("latitude")[0].childNodes[0].nodeValue;
 		var lo = co[j].getElementsByTagName("longitude")[0].childNodes[0].nodeValue;
-		/*document.write(la);
-		document.write("<br/>");
-		document.write(lo);
-		document.write("<br/>");*/
 		
 		context.beginPath();
 		context.fillStyle = "#0055FF";
@@ -141,14 +124,15 @@
 
 	if (window.XMLHttpRequest){
 		xmlhttp = new XMLHttpRequest();
-		//document.write("Request ok<br/>");
 	}else {
 		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		//document.write("Request not ok");
 	}
 	
 	//xmlhttp.open("GET","../trajets/Carte_exemple_2_resultat.xml",false);
-	var adr_trajet = getQueryString('trajet_arr');
+	var adr = getQueryString('adr');
+	//document.write(adr);	
+	xmlhttp.open("GET",adr,false);
+	
 	xmlhttp.send();
 	xmlDoc = xmlhttp.responseXML;
 
@@ -178,6 +162,7 @@
 	}
 	
 	var start = xmlDoc.getElementsByTagName("ville-depart")[0].childNodes[0].nodeValue;
+	
 	for(j = 0;j<v.length;j++)
 	{
 		if(start == v[j].getElementsByTagName("nom")[0].childNodes[0].nodeValue)
@@ -277,26 +262,47 @@
 				{
 					latitudes.push(cooo[n].getElementsByTagName("latitude")[0].childNodes[0].nodeValue);
 					longtitudes.push(cooo[n].getElementsByTagName("longitude")[0].childNodes[0].nodeValue);
+					
 				}
 			}
 		}
 	}
-	//document.write("latitudes "+latitudes);
-	//document.write("longtitudes "+longtitudes);
 	
 	for (i=0;i<el;i++){
 		context.beginPath();
 		context.strokeStyle = "#C0392B";
 		context.lineWidth = 5;	
 		context.moveTo(340*(latitudes[i]-25),220*(longtitudes[i]-25));
-		//for(j=1;j<el;j++){
 		context.lineTo(340*(latitudes[i+1]-25),220*(longtitudes[i+1]-25));
 		context.stroke();
 		context.closePath();
 	}
 	
-	</script>
-       
 
+	//var routes = new Array();
+	var destinations = new Array();
+	for (i=0;i<el;i++){
+		//routes.push(etape[i].getElementsByTagName("route")[0].childNodes[0].nodeValue);
+		destinations.push(etape[i].getElementsByTagName("destination")[0].childNodes[0].nodeValue);
+	}
+	
+	document.write("Ville depart: "+start+"<br/>");
+	
+	for(i=0;i<el;i++){
+		document.write("Etape "+(i+1)+" to destination : "+destinations[i]+"<br/>");
+	}
+	
+	document.write("Ville fin: "+fin+"<br/>");
+	
+	var btn = document.getElementById("btn");
+		btn.onclick=function(){			
+			window.location.href="../control/c_stockFavori.php?adr="+adr;
+			
+		}
+
+	</script>
+    </div>
+	
+	
 </body>
 </html>

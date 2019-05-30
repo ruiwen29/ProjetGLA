@@ -73,17 +73,23 @@ Class User
 			echo "<li>vous n'a pas de favori</li>";
 		}
 		else {
-			while (($row = mysql_fetch_row($result)) !== false){
-			$id_trajet =  $row['id_trajet'];
-			$trajet =  $row['Trajet'];
-			$trajet_json= json_encode($trajet );
-			echo "<li>< a href = '../view/v_trajet.php?trajet_json=$trajet_json' >$trajet </a></li>
-			";
-		}
-		}
-        
 			
+			$row  =  mysqli_fetch_assoc($result);
+			$adr  = $row['Trajet'];
+			echo "<li><a href = '../view/v_trajet.php?adr=$adr' >".$adr ."</a></li>";
+			//echo "<li>".$adr ."</li>";
 		
+			
+		}
+    		
 	}
+	
+	public function ajoute_favori ($co ,$t){
+		$id = $this->id;
+		$requete = "INSERT INTO `trajetfavori` (`id_trajet`, `Trajet`, `id_user`) VALUES (NULL, '$t', '$id');";
+        $result = mysqli_query($co, $requete) or die ("Erreur:Execution de la requete impossible1:" . mysqli_error($co));
+	     	
+	}
+	
 }
 ?>
