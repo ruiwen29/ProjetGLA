@@ -3,12 +3,11 @@
 	include ("../model/m_trajet.php");
 	//require_once("../model/m_carte.php");
     if(isset($_POST["codition"])&&isset($_POST["depart"])&&isset($_POST["destination"])&&isset($_POST["radar"])){
-        if (isset($_POST["sv"])){
-			$sv = $_POST["sv"];
+        if (isset($_POST["ev"])){
 			$ev = $_POST["ev"];
 		}
 		else {
-			$sv = '';
+		
 			$ev = '';
 		}
 		$codition = $_POST["codition"];

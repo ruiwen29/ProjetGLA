@@ -1,37 +1,28 @@
  <?php
-session_start();
-	if(!isset($_SESSION['id'])){
-		$id=-1;
-	}
-	else{
-		$id=$_SESSION['id'];
-		echo $id;
-	}
-	
-//ouverture de XML
+
 $xml = new DOMDocument();
-$xml->load('../Cartes/Carte_2.xml');//recuperer info de la carte
+$xml->load('../Cartes/Carte_2.xml');
 $ville1=$xml->getElementsByTagName('ville');
 $route1=$xml->getElementsByTagName('route');
-function trajetSA($depart,$destination,$villenonpass,$route,$radar){//algo:Aetoile	
+function trajetSA($depart,$destination,$villenonpass,$route,$radar){
 	global $xml;
 	global $ville1;
 	global $route1;
 	$untrajet=array();
 	$trajet=array();
-	$maintenant=$depart;//la ville ou on est.
+	$maintenant=$depart;
 	$nb=0;
 	$vite=0;
 	
-    $g=0;//la distance du point current et point départ
-	$h=0;//点与重点的直线距离:la distance entre la ville maintenante et la destination 
-	$f=$g+$h;//权重:le poid qu'on utilise cette confiance pour chosir la ville prochaine
+    $g=0;
+	$h=0;
+	$f=$g+$h;
 	$t=0.0;
 	$des_x=0.0;
 	$des_y=0.0;
 	$flagout=true;
 	foreach($ville1 as $vi){
-		if ($vi->getElementsByTagName("nom")[0]->nodeValue==$destination){//找终点城市的xy坐标	 qu'on veur chercher x y de la ville Arrivée
+		if ($vi->getElementsByTagName("nom")[0]->nodeValue==$destination){
 			$des_x=$vi->getElementsByTagName("coordonnees")[0]->getElementsByTagName("latitude")[0]->nodeValue;
 			$des_y=$vi->getElementsByTagName("coordonnees")[0]->getElementsByTagName("longitude")[0]->nodeValue;//la position de la destination
 			}
@@ -39,14 +30,14 @@ function trajetSA($depart,$destination,$villenonpass,$route,$radar){//algo:Aetoi
 	$flage=true;$start=array();	
 	while($flage){
 	foreach($route1 as $rout){	
-	foreach($rout->getElementsByTagName("troncon") as $tron){// on dois retirer tous les troncons qui a assoiciation avec la ville maintenant dans array de start.
-		if($tron->getElementsByTagName("ville1")[0]->nodeValue==$maintenant){//如果找到一个troncon的一个头和当下城市相同 si on trouver un troncon 'ville1'
-																				// egale à la ville currente
+	foreach($rout->getElementsByTagName("troncon") as $tron){
+		if($tron->getElementsByTagName("ville1")[0]->nodeValue==$maintenant){
+																				
 			$fl=true;
-			foreach($ville1 as $vi){///找到另一段的城市
+			foreach($ville1 as $vi){
 				$v=$tron->getElementsByTagName("ville2")[0]->nodeValue;
 				$r=$tron->getElementsByTagName("radar")[0]->nodeValue;
-				if ($vi->getElementsByTagName("nom")[0]->nodeValue==$v){//找到后计算权重等
+				if ($vi->getElementsByTagName("nom")[0]->nodeValue==$v){
 					if($villenonpass!='') {if($v==$villenonpass) $fl=false;}
 					if($radar!='') {if($r=="oui") $fl=false;}
 					if ($depart==$v ) $fl=false;
@@ -57,7 +48,7 @@ function trajetSA($depart,$destination,$villenonpass,$route,$radar){//algo:Aetoi
 					if ($fl==true){
 					$nbensuite=$nb+1;
 					$viteensuite=$vite+$tron->getElementsByTagName("vitesse")[0]->nodeValue;
-					$gensuite=$g+$tron->getElementsByTagName("longueur")[0]->nodeValue;//6是这个troncon的长度 cest la longueur du troncon
+					$gensuite=$g+$tron->getElementsByTagName("longueur")[0]->nodeValue;
 					$tensuite=$gensuite/($viteensuite/$nbensuite);
 					$main_x=$vi->getElementsByTagName("coordonnees")[0]->getElementsByTagName("latitude")[0]->nodeValue;
 					$main_y=$vi->getElementsByTagName("coordonnees")[0]->getElementsByTagName("longitude")[0]->nodeValue;
@@ -76,10 +67,10 @@ function trajetSA($depart,$destination,$villenonpass,$route,$radar){//algo:Aetoi
 		}
 		else if($tron->getElementsByTagName("ville2")[0]->nodeValue==$maintenant){
 			$fl=true;
-			foreach($ville1 as $vi){///找到另一段的城市
+			foreach($ville1 as $vi){
 				$v=$tron->getElementsByTagName("ville1")[0]->nodeValue;
 				$r=$tron->getElementsByTagName("radar")[0]->nodeValue;
-				if ($vi->getElementsByTagName("nom")[0]->nodeValue==$v){//找到后计算权重等
+				if ($vi->getElementsByTagName("nom")[0]->nodeValue==$v){
 					if($villenonpass!='') {if($v==$villenonpass) $fl=false;}
 					if($radar!='') {if($r=="oui") $fl=false;}
 					if ($depart==$v ) $fl=false;
@@ -90,7 +81,7 @@ function trajetSA($depart,$destination,$villenonpass,$route,$radar){//algo:Aetoi
 					if ($fl==true){
 					$nbensuite=$nb+1;
 					$viteensuite=$vite+$tron->getElementsByTagName("vitesse")[0]->nodeValue;
-					$gensuite=$tron->getElementsByTagName("longueur")[0]->nodeValue+$g;//6是这个troncon的长度
+					$gensuite=$tron->getElementsByTagName("longueur")[0]->nodeValue+$g;
 					$tensuite=$gensuite/($viteensuite/$nbensuite);
 					$main_x=$vi->getElementsByTagName("coordonnees")[0]->getElementsByTagName("latitude")[0]->nodeValue;
 					$main_y=$vi->getElementsByTagName("coordonnees")[0]->getElementsByTagName("longitude")[0]->nodeValue;
@@ -110,34 +101,30 @@ function trajetSA($depart,$destination,$villenonpass,$route,$radar){//algo:Aetoi
 	}
 	}
 	$j=0;
-	foreach($start as $choix){//apres on ajoute les troncons vouvels ,il faut quitter les villes on a deja passe dans start(c-a-d:la ville maintenant)                         
-		//所有这个城市的信息都要删除，因为这个城市最短路径已经被找到并且丢到trajet里了。
+	foreach($start as $choix){
+		
 		if($choix[0]==$maintenant) {array_splice($start,$j,1);$j--;}
 		$j++;
-	}
-	//si start est ville, on n'a pas trouve aucun trajet entre depart et destination , on envoie les info.
+	}	
 	if ($start==[]){echo "desole! il n'y a pas de trajet entre ces deux villes!</br>";$flage=false;$flagout=false;}
-	/*结束情况一：如果所有的开始数组里的所有城市都被走完了，说明没有匹配的路径通到目的地，所以flage变成结束的标志*/
 	else{
 		$index=0;
 		$long=50000000;
 		$i=0;
-		foreach($start as $choix){//il nous faut choisir la niuvelle ville comme ville maintenant selon la confiance de f,on choisir le moins.
+		foreach($start as $choix){
 			if($choix[4]<$long) {$long=$choix[4];$index=$i;}
 			$i++;
-			//echo "每个路：".$choix[0]." f ".$choix[4]." </br>";
 		}
 		echo "le petit étape".$start[$index][5]."->".$start[$index][0]."</br>";
 		array_push($trajet,$start[$index]);
 		$nb=$start[$index][6];$vite=$start[$index][7];
-		$g=$start[$index][2];//记录上一记录的走过的路程距离。mais faut que notter les distance de passe de depart a maintenant 
-		$maintenant=$start[$index][0];//改变当下城市
-		//si maintnant est deja la destination cest a dire on a trouve un trajet deja
-		if ($maintenant==$destination) {$flage=false;echo "fini!</br>";}//结束情况2：当前的城市已经是destination：quand la derniere villes est destination,on finis.
+		$g=$start[$index][2];
+		$maintenant=$start[$index][0];
+		if ($maintenant==$destination) {$flage=false;echo "fini!</br>";}
 		}
 	}
-	$t=$trajet;//整理一下有用的troncon信息到untrajet里面。
-	if($flagout){//on retirer tous les utiles sur le vrai trajet dans l'array de trajet 
+	$t=$trajet;
+	if($flagout){
 		$n=count($t)-1;
 		array_unshift($untrajet,$t[$n]);
 		$villeA=$t[$n][5];
@@ -163,21 +150,21 @@ function trajetRapide($depart,$destination,$villenonpass,$route,$radar){//algo:A
 	$untrajet=array();
 	$trajet=array();
 	$maintenant=$depart;//la ville ou on est.
-    $vitesse1=0;//点与起点的速度:sum(vitesse d'un troncon)
+    $vitesse1=0;
 	$nb=0;
-	$g=0;//点与起点的距离:sum(distance d'un troncon)
-	$t=0.0;//总体时间:on utilise cette confiance（temps total） pour chosir la ville prochaine
+	$g=0;
+	$t=0.0;
 	$flagout=true;
 	$flage=true;$start=array();	
 	while($flage){
 	foreach($route1 as $rout){	
-	foreach($rout->getElementsByTagName("troncon") as $tron){// on dois retirer tous les troncons qui a assoiciation avec la ville maintenant dans array de start.
-		if($tron->getElementsByTagName("ville1")[0]->nodeValue==$maintenant){//如果找到一个troncon的一个头和当下城市相同
+	foreach($rout->getElementsByTagName("troncon") as $tron){
+		if($tron->getElementsByTagName("ville1")[0]->nodeValue==$maintenant){
 			$fl=true;
-			foreach($ville1 as $vi){///找到另一段的城市
+			foreach($ville1 as $vi){
 				$v=$tron->getElementsByTagName("ville2")[0]->nodeValue;
 				$r=$tron->getElementsByTagName("radar")[0]->nodeValue;
-				if ($vi->getElementsByTagName("nom")[0]->nodeValue==$v){//找到后计算权重等
+				if ($vi->getElementsByTagName("nom")[0]->nodeValue==$v){
 					if($villenonpass!='') {if($v==$villenonpass) $fl=false;}
 					if($radar!='') {if($r=="oui") $fl=false;}
 					if ($depart==$v ) $fl=false;
@@ -186,9 +173,9 @@ function trajetRapide($depart,$destination,$villenonpass,$route,$radar){//algo:A
 						if($tar[0]==$v) $fl=false;
 					}}
 					if ($fl==true){
-					$vensuite=$vitesse1+$tron->getElementsByTagName("vitesse")[0]->nodeValue;//6是这个troncon的vitesse
+					$vensuite=$vitesse1+$tron->getElementsByTagName("vitesse")[0]->nodeValue;
 					$nbensuite=$nb+1;
-					$gensuite=$g+$tron->getElementsByTagName("longueur")[0]->nodeValue;//6是这个troncon的longueur
+					$gensuite=$g+$tron->getElementsByTagName("longueur")[0]->nodeValue;
 					$t=$gensuite/($vensuite/$nbensuite);
 					if($route!=''){
 						if ($rout->getElementsByTagName("type")[0]->nodeValue!=$route) $t+=200;
@@ -203,10 +190,10 @@ function trajetRapide($depart,$destination,$villenonpass,$route,$radar){//algo:A
 		}
 		else if($tron->getElementsByTagName("ville2")[0]->nodeValue==$maintenant){
 			$fl=true;
-			foreach($ville1 as $vi){///找到另一段的城市
+			foreach($ville1 as $vi){
 				$v=$tron->getElementsByTagName("ville1")[0]->nodeValue;
 				$r=$tron->getElementsByTagName("radar")[0]->nodeValue;
-				if ($vi->getElementsByTagName("nom")[0]->nodeValue==$v){//找到后计算权重等
+				if ($vi->getElementsByTagName("nom")[0]->nodeValue==$v){
 					if($villenonpass!='') {if($v==$villenonpass) $fl=false;}
 					if($radar!='') {if($r=="oui") $fl=false;}
 					if ($depart==$v ) $fl=false;
@@ -215,9 +202,9 @@ function trajetRapide($depart,$destination,$villenonpass,$route,$radar){//algo:A
 						if($tar[0]==$v) $fl=false;
 					}}
 					if ($fl==true){
-					$vensuite=$vitesse1+$tron->getElementsByTagName("vitesse")[0]->nodeValue;//6是这个troncon的vitesse
+					$vensuite=$vitesse1+$tron->getElementsByTagName("vitesse")[0]->nodeValue;
 					$nbensuite=$nb+1;
-					$gensuite=$g+$tron->getElementsByTagName("longueur")[0]->nodeValue;//6是这个troncon的longueur
+					$gensuite=$g+$tron->getElementsByTagName("longueur")[0]->nodeValue;
 					$t=$gensuite/($vensuite/$nbensuite);
 					if($route!=''){
 						if ($rout->getElementsByTagName("type")[0]->nodeValue!=$route) $t+=200;
@@ -233,34 +220,32 @@ function trajetRapide($depart,$destination,$villenonpass,$route,$radar){//algo:A
 	}
 	}
 	$j=0;
-	foreach($start as $choix){//apres on ajoute les troncons vouvels ,il faut quitter les villes on a deja passe dans start(c-a-d:la ville maintenant)                         
-		//所有这个城市的信息都要删除，因为这个城市最短路径已经被找到并且丢到trajet里了。
+	foreach($start as $choix){                
+		
 		if($choix[0]==$maintenant) {array_splice($start,$j,1);$j--;}
 		$j++;
 	}
-	//si start est ville, on n'a pas trouve aucun trajet entre depart et destination , on envoie les info.
+	
 	if ($start==[]){echo "desole! il n'y a pas de trajet entre ces deux villes!</br>";$flage=false;$flagout=false;}
-	/*结束情况一：如果所有的开始数组里的所有城市都被走完了，说明没有匹配的路径通到目的地，所以flage变成结束的标志*/
 	else{
 		$index=0;
 		$long=50000000;
 		$i=0;
-		foreach($start as $choix){//il nous faut choisir la niuvelle ville comme ville maintenant selon la confiance de f,on choisir le moins.
+		foreach($start as $choix){
 			if($choix[4]<$long) {$long=$choix[4];$index=$i;}
 			$i++;
 		}
 		echo "troncon".$start[$index][5]."->".$start[$index][0]."</br>";
 		array_push($trajet,$start[$index]);
-		$vitesse1=$start[$index][2];//记录上一记录的走过的vitesse。mais faut que notter les distance de passe de depart a maintenant 
+		$vitesse1=$start[$index][2]; 
 		$g=$start[$index][3];
 		$nb=$start[$index][6];
-		$maintenant=$start[$index][0];//改变当下城市
-		//si maintnant est deja la destination cest a dire on a trouve un trajet deja
-		if ($maintenant==$destination) {$flage=false;echo "fini!</br>";}//结束情况2：当前的城市已经是destination：quand la derniere villes est destination,on finis.
+		$maintenant=$start[$index][0];
+		if ($maintenant==$destination) {$flage=false;echo "fini!</br>";}
 		}
 	}
-	$t=$trajet;//整理一下有用的troncon信息到untrajet里面。
-	if($flagout){//on retirer tous les utiles sur le vrai trajet dans l'array de trajet 
+	$t=$trajet;
+	if($flagout){
 		$n=count($t)-1;
 		array_unshift($untrajet,$t[$n]);
 		$villeA=$t[$n][5];
@@ -276,8 +261,8 @@ function trajetRapide($depart,$destination,$villenonpass,$route,$radar){//algo:A
 	}
 	echo "le nombre des étapes：".count($untrajet)."</br>";
 	
-	//print_r($untrajet);
-	return $untrajet;// on l'envoie.
+	
+	return $untrajet;
 }
 function form_arr_for_xml($arr){
 	global $route1;
@@ -294,7 +279,6 @@ function form_arr_for_xml($arr){
 }
 function stock_trajet ($arr_xml){
   $xml    = '<trajet></trajet>';
-  //以字符串为基础创建xml对
   $xmlObj = simplexml_load_string($xml);
   $k = 1;
   foreach($arr_xml as $rows){
@@ -311,12 +295,10 @@ function stock_trajet ($arr_xml){
    else{
     $item    = $xmlObj->addChild('etape');
     $itemSon = $item->addChild('numero',$rows[0]);
-    //$itemSon = $item->addChild('route',$rows[1]);
     $itemSon = $item->addChild('destination',$rows[1]);
    }
    
   }
-  //保存XML文件
   $a = date('Y-m-d');
   $b = time();
   $xmlObj->asXML('../trajets/trajet_'.$a.'_'.$b.'.xml');

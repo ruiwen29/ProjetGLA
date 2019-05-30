@@ -130,8 +130,6 @@
 			Destination:
             <input type="text" name="destination" placeholder = 'ville'>
 			<p></p>		
-			Vous voulez eviter le ville 
-			<input type="text" name="sv" placeholder = 'ville' >   		
 			Vous voulez éviter la ville 
 			<input type="text" name="ev" placeholder = 'ville' > 
 

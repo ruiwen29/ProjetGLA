@@ -24,8 +24,8 @@
 			header('location:../view/v_accuille.php');	
 		}
 		else{
-			echo 'pas connecter!';
-			//echo "<script>alert('pas connecter!');parent.location.href='../view/v_accuille.php';</script>";
+			//echo 'pas connecter!';
+			echo "<script>alert('pas connecter!');parent.location.href='../index.php';</script>";
 		}
 		 
 	}
