@@ -1,0 +1,206 @@
+body{
+	left:20%;
+	margin-left: 4%; /*元素的左外边距 %定义基于父对象总高度的百分比左外边距。*/
+	/*width:expression(window.screen.width - (border) - (scroll width ) );*/
+	background-image: url(005.jpg);
+	font: normal 100% Helvetica, Arial, sans-serif;
+}
+canvas{
+	border-style: solid; /* 设置四条边框的样式*/
+	border-color: #66CCFF;
+	background-color:rgba(255,255,255,0.5);
+	text-align: left;
+}
+.trajetfinal h1{
+	color : #DC32FF;
+	 font-family :Comic Sans MS;
+	 font-size : 30pt;
+}
+
+.trajetfinal img{
+	position : absolute;
+	top: 0px;
+	right : 0px;
+	width : 80px;
+}
+
+.trajetfinal button{
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #1FC423;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 5px; 
+  width: 250px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.carte img{
+	position : absolute;
+	top: 0px;
+	right : 0px;
+	width : 80px;
+}
+
+.main {
+	font-family:Comic Sans MS;
+	font-size:20px;
+}
+
+.main img{
+	position : absolute;
+	top: 0px;
+	right : 0px;
+	width : 80px;
+}
+
+.main h1{
+	 color : #DC32FF;
+	 font-family :Comic Sans MS;
+	 font-size : 30pt;
+}
+
+.main input[type = text] {
+	border-radius :3px;
+	padding:5px;
+	width: 180px;
+	border-color : #5CFF49;
+}
+
+.main input[type = password] {
+	border-radius :3px;	
+	padding:5px;
+	width: 180px;
+	border-color : #5CFF49;
+}
+
+.main input[type = submit]{
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #1FC423;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 5px; 
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.carte h1{
+	 color : #4E69FF;
+	 font-family :Comic Sans MS;
+	 font-size : 25pt;
+}
+
+.condition {
+	font-family :Comic Sans MS;
+	color: #00B415;
+}
+
+.condition h1 
+{
+	 color : #FFA04E;
+	 font-family :Comic Sans MS;
+	 font-size : 25pt;
+}
+
+.condition select {
+	border-radius :3px;
+	border-color : green;
+	
+}
+
+.condition option{
+	color : #8B29FF;
+	font-family :Comic Sans MS;
+}
+
+.condition input[type = submit]{
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  padding: 5px; 
+  width: 60px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.condition input[type = text] {
+	border-radius :3px;
+	border-color : #5CFF49;
+}
+
+.favori h1{
+	color : #2879FF;
+	font-family :Comic Sans MS;
+	font-size : 25pt;
+}
+
+.filtrer h1{
+	color : #FF8828;
+	font-family :Comic Sans MS;
+	font-size : 25pt;
+}
+
+.filtrer option{
+	color : #8B29FF;
+	font-family :Comic Sans MS;
+}
+
+.filtrer input[type = text] {
+	border-radius :3px;
+	border-color : #5CFF49;
+}
+
+.filtrer select {
+	width: 70px;
+	border-radius : #009A01;
+	border-color : #5CFF49;
+	padding :3px;
+}
+
+.filtrer {
+	font-family :Comic Sans MS;
+	color: #8617FF;
+}
+
+.filtrer input[type = submit]{
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #27CC1B;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 16px;
+  padding: 10px; 
+  width: 110px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.trajet h1{
+	color : #438AFF;
+	font-family :Comic Sans MS;
+	font-size : 25pt;
+}
+.return {
+	font-family :Courier;
+	font-size: 20px;
+	font-style:italic;
+	color: #8617FF;
+}
+ 
+
