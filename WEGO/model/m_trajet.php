@@ -268,8 +268,19 @@ function form_arr_for_xml($arr){
 	global $route1;
 	$arr_xml = array($arr[0]);
 	$i = 1;
+	$nom_route='';
 	for($i = 1 ;$i< count($arr); $i++){		
-		$a = array($i , $arr[$i]);
+		foreach($route1 as $rout){	
+			foreach($rout->getElementsByTagName("troncon") as $tron){
+				if($tron->getElementsByTagName("ville1")[0]->nodeValue==$arr[$i-1]){
+				   if($tron->getElementsByTagName("ville2")[0]->nodeValue==$arr[$i]){
+					   $nom_route = $rout->getElementsByTagName("nom")[0]->nodeValue;
+				   }
+				}
+			}
+		
+		}
+		$a = array($i ,$nom_route, $arr[$i]);
 		print_r($arr[$i]);
 		array_push($arr_xml , $a);
 	}
@@ -295,7 +306,8 @@ function stock_trajet ($arr_xml){
    else{
     $item    = $xmlObj->addChild('etape');
     $itemSon = $item->addChild('numero',$rows[0]);
-    $itemSon = $item->addChild('destination',$rows[1]);
+	$itemSon = $item->addChild('route',$rows[1]);
+    $itemSon = $item->addChild('destination',$rows[2]);
    }
    
   }
