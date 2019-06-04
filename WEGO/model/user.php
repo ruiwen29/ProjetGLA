@@ -76,7 +76,7 @@ Class User
 			
 			 while ($row = mysqli_fetch_assoc($result)) {
 				 $adr  = $row['Trajet'];
-				echo "<li><a href = '../view/v_trajet.php?adr=$adr' >".$adr ."</a>  <a href = '../control/c_supprimer.php?adr=$adr' > Supprimer</a></li>";
+				echo "<li><a href = '../view/v_favori.php?adr=$adr' >".$adr ."</a>  <a href = '../control/c_supprimer.php?adr=$adr' > Supprimer</a></li>";
 				//echo "<li>".$adr ."</li>";
 			 }
 			

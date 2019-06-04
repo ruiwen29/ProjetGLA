@@ -19,7 +19,7 @@
 			</canvas>
 			</div>
 			</br>
-			<button id="btn">stock ce trajet a la liste favori</button>
+			<button id="btn">Retour</button>
 			</br>
 	<script type = "text/javascript">
 	function getQueryString(name) {  
@@ -296,7 +296,7 @@
 	
 	var btn = document.getElementById("btn");
 		btn.onclick=function(){			
-			window.location.href="../control/c_stockFavori.php?adr="+adr;
+			window.location.href="../view/v_accuille.php";
 			
 		}
 
